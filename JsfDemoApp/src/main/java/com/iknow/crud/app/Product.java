@@ -1,18 +1,13 @@
-package jpa.entities;
+package com.iknow.crud.app;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,17 +33,6 @@ public class Product implements Serializable {
     private String available;
     @Column(name = "DESCRIPTION")
     private String description;
-    
-    /*
-    @JoinColumn(name = "MANUFACTURER_ID", referencedColumnName = "MANUFACTURER_ID")
-    @ManyToOne(optional = false)
-    private Manufacturer manufacturerId;
-    @JoinColumn(name = "PRODUCT_CODE", referencedColumnName = "PROD_CODE")
-    @ManyToOne(optional = false)
-    private ProductCode productCode;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private Collection<PurchaseOrder> purchaseOrderCollection;
-    */
     
     public Product() {
     }
@@ -104,31 +88,6 @@ public class Product implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    /*
-    public Manufacturer getManufacturerId() {
-        return manufacturerId;
-    }
-
-    public void setManufacturerId(Manufacturer manufacturerId) {
-        this.manufacturerId = manufacturerId;
-    }
-
-    public ProductCode getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(ProductCode productCode) {
-        this.productCode = productCode;
-    }
-
-    public Collection<PurchaseOrder> getPurchaseOrderCollection() {
-        return purchaseOrderCollection;
-    }
-
-    public void setPurchaseOrderCollection(Collection<PurchaseOrder> purchaseOrderCollection) {
-        this.purchaseOrderCollection = purchaseOrderCollection;
-    }*/
 
     @Override
     public int hashCode() {

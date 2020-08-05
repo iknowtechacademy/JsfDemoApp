@@ -8,7 +8,7 @@ import jpa.controllers.exceptions.IllegalOrphanException;
 import jpa.controllers.exceptions.NonexistentEntityException;
 import jpa.controllers.exceptions.PreexistingEntityException;
 import jpa.controllers.exceptions.RollbackFailureException;
-import jpa.entities.Product;
+import com.iknow.crud.app.Product;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 

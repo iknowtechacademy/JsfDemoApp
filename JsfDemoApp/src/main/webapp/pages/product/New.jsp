@@ -7,7 +7,7 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <title>New Product</title>
-            <link rel="stylesheet" type="text/css" href="/JsfJpaCrud/faces/jsfcrud.css" />
+            <link rel="stylesheet" type="text/css" href="/JsfDemoApp/faces/jsfcrud.css" />
         </head>
         <body>
             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>

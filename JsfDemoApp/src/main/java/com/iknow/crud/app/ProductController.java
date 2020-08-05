@@ -1,79 +1,40 @@
-package jsf;
+package com.iknow.crud.app;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.FacesException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.model.SelectItem;
-import jpa.controllers.ProductJpaController;
-import jpa.controllers.ProductJpaControllerService;
-import jpa.entities.Product;
 import jsf.util.JsfUtil;
-import jpa.controllers.exceptions.NonexistentEntityException;
-import jpa.controllers.exceptions.IllegalOrphanException;
 import jsf.util.PagingInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-/**
- *
- * @author mbohm
- */
-@Component
 public class ProductController {
 
-    private Product product = null;
-    private List<Product> productItems = null;
+    private Product product;
+    private List<Product> productItems;
 
-    @Autowired
-    private ProductJpaControllerService jpaController;
-
-    private ProductConverter converter = null;
-    private PagingInfo pagingInfo = null;
+    private ProductConverter converter;
+    private PagingInfo pagingInfo;
 
     public ProductController() {
-        //FacesContext facesContext = FacesContext.getCurrentInstance();
-        //jpaController = (ProductJpaController) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "productJpa");
+        System.out.println("ProductController:: "+this);
         pagingInfo = new PagingInfo();
         converter = new ProductConverter();
-        
-        
-        //product = new Product();
     }
 
     public PagingInfo getPagingInfo() {
-        System.out.println("jpaController:: "+jpaController);
-        
-        if(jpaController == null){
-            pagingInfo.setItemCount(0);
+
+        if (productItems == null) {
+            productItems = new ArrayList<Product>();
         }
-        
-        if (pagingInfo.getItemCount() == -1) {
-            pagingInfo.setItemCount(jpaController.getProductCount());
-        }
+        pagingInfo.setItemCount(productItems.size());
         return pagingInfo;
     }
 
-    public SelectItem[] getProductItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(jpaController.findProductEntities(), false);
-    }
-
-    public SelectItem[] getProductItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(jpaController.findProductEntities(), true);
-    }
-
     public Product getProduct() {
-        if (product == null) {
-            product = (Product) JsfUtil.getObjectFromRequestParameter("jsfcrud.currentProduct", converter, null);
-        }
         if (product == null) {
             product = new Product();
         }
@@ -93,24 +54,21 @@ public class ProductController {
 
     public String create() {
         try {
-            
+
             System.out.println("Trying to save a Product");
-            
-            if(productItems == null){
+
+            if (productItems == null) {
                 productItems = new ArrayList<Product>();
             }
-            
-            System.out.println("productItems "+productItems);
-            
-            //jpaController.create(product);
-            
+
             productItems.add(product);
-            
+            System.out.println("productItems " + productItems);
+
             JsfUtil.addSuccessMessage("Product was successfully created.");
         } catch (Exception e) {
-            
+
             JsfUtil.ensureAddErrorMessage(e, "A persistence error occurred.");
-                        
+
             return null;
         }
         return listSetup();
@@ -136,7 +94,7 @@ public class ProductController {
     }
 
     public String edit() {
-        String productString = converter.getAsString(FacesContext.getCurrentInstance(), null, product);
+        String productString = product.toString();
         String currentProductString = JsfUtil.getRequestParameter("jsfcrud.currentProduct");
         if (productString == null || productString.length() == 0 || !productString.equals(currentProductString)) {
             String outcome = editSetup();
@@ -146,14 +104,8 @@ public class ProductController {
             return outcome;
         }
         try {
-            jpaController.edit(product);
+            //jpaController.edit(product);
             JsfUtil.addSuccessMessage("Product was successfully updated.");
-        } catch (IllegalOrphanException oe) {
-            JsfUtil.addErrorMessages(oe.getMessages());
-            return null;
-        } catch (NonexistentEntityException ne) {
-            JsfUtil.addErrorMessage(ne.getLocalizedMessage());
-            return listSetup();
         } catch (Exception e) {
             JsfUtil.ensureAddErrorMessage(e, "A persistence error occurred.");
             return null;
@@ -165,14 +117,8 @@ public class ProductController {
         String idAsString = JsfUtil.getRequestParameter("jsfcrud.currentProduct");
         Integer id = new Integer(idAsString);
         try {
-            jpaController.destroy(id);
+            //jpaController.destroy(id);
             JsfUtil.addSuccessMessage("Product was successfully deleted.");
-        } catch (IllegalOrphanException oe) {
-            JsfUtil.addErrorMessages(oe.getMessages());
-            return null;
-        } catch (NonexistentEntityException ne) {
-            JsfUtil.addErrorMessage(ne.getLocalizedMessage());
-            return relatedOrListOutcome();
         } catch (Exception e) {
             JsfUtil.ensureAddErrorMessage(e, "A persistence error occurred.");
             return null;
@@ -189,11 +135,6 @@ public class ProductController {
     }
 
     public List<Product> getProductItems() {
-        /*
-        if (productItems == null) {
-            getPagingInfo();
-            productItems = jpaController.findProductEntities(pagingInfo.getBatchSize(), pagingInfo.getFirstItem());
-        }*/
         return productItems;
     }
 
@@ -234,8 +175,12 @@ public class ProductController {
 
     private void reset(boolean resetFirstItem) {
         product = null;
-        productItems = null;
-        pagingInfo.setItemCount(-1);
+        //productItems = null;
+        if (productItems == null) {
+            productItems = new ArrayList<Product>();
+        }
+        
+        pagingInfo.setItemCount(productItems.size());
         if (resetFirstItem) {
             pagingInfo.setFirstItem(0);
         }

@@ -174,17 +174,16 @@
     </navigation-rule>
     <managed-bean>
         <managed-bean-name>product</managed-bean-name>
-        <managed-bean-class>jsf.ProductController</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.iknow.crud.app.ProductController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>productJpa</managed-bean-name>
         <managed-bean-class>jpa.controllers.ProductJpaController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <converter>
-        <converter-for-class>jpa.entities.Product</converter-for-class>
-        <converter-class>jsf.ProductConverter</converter-class>
+        <converter-for-class>com.iknow.crud.app.Product</converter-for-class>
+        <converter-class>com.iknow.crud.app.ProductConverter</converter-class>
     </converter>
     <navigation-rule>
         <navigation-case>

@@ -42,7 +42,7 @@ import jpa.controllers.exceptions.IllegalOrphanException;
 import jpa.controllers.exceptions.NonexistentEntityException;
 import jpa.controllers.exceptions.PreexistingEntityException;
 import jpa.controllers.exceptions.RollbackFailureException;
-import jpa.entities.Product;
+import com.iknow.crud.app.Product;
 import java.util.ArrayList;
 import java.util.Collection;
 import jpa.entities.ProductCode;

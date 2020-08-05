@@ -30,6 +30,7 @@
 
 package jpa.entities;
 
+import com.iknow.crud.app.Product;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
