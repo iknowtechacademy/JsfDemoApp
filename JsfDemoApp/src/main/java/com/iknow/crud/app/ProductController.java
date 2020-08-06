@@ -18,9 +18,14 @@ public class ProductController {
 
     private ProductConverter converter;
     private PagingInfo pagingInfo;
+    
+    private boolean isWeb;
+
+    
 
     public ProductController() {
-        System.out.println("ProductController:: "+this);
+        
+        isWeb = true;
         pagingInfo = new PagingInfo();
         converter = new ProductConverter();
     }
@@ -39,6 +44,10 @@ public class ProductController {
             product = new Product();
         }
         return product;
+    }
+    
+    public void setProduct(Product p){
+        product = p;
     }
 
     public String listSetup() {
@@ -63,11 +72,16 @@ public class ProductController {
 
             productItems.add(product);
             System.out.println("productItems " + productItems);
+            
+            if(isWeb){
+                JsfUtil.addSuccessMessage("Product was successfully created.");
+            }
 
-            JsfUtil.addSuccessMessage("Product was successfully created.");
+            
         } catch (Exception e) {
-
-            JsfUtil.ensureAddErrorMessage(e, "A persistence error occurred.");
+            if(isWeb){
+                JsfUtil.ensureAddErrorMessage(e, "A persistence error occurred.");
+            }
 
             return null;
         }
@@ -197,6 +211,14 @@ public class ProductController {
 
     public Converter getConverter() {
         return converter;
+    }
+    
+    public boolean isIsWeb() {
+        return isWeb;
+    }
+
+    public void setIsWeb(boolean isWeb) {
+        this.isWeb = isWeb;
     }
 
 }

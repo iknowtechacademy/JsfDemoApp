@@ -25,7 +25,7 @@
                             <f:facet name="header">
                                 <h:outputText value="ProductId"/>
                             </f:facet>
-                            <h:outputText value=" #{item.productId}"/>
+                            <h:outputText value=" #{item.productId}" id="productIdColumn"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

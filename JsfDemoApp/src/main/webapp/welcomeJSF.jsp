@@ -21,7 +21,9 @@
             <h:form>
                 <h1><h:outputText value="JavaServer Faces" /></h1>
                 <br/>
-                <h:commandLink action="#{product.listSetup}" value="Show All Product Items"/>
+                <h:commandLink action="#{product.listSetup}" value="All Product Items" id="linkProds" />
+                <br/>
+                <h:commandLink action="#{product.listSetup}" value="All Categories Items" id="linkCats" />
 
                 <br/>
             </h:form>
