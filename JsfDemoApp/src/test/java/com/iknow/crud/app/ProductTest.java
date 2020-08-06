@@ -7,6 +7,7 @@ import org.junit.Before;
 
 public class ProductTest {
     
+    
     private Product product;
     
     @Before
